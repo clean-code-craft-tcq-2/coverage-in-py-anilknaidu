@@ -7,10 +7,12 @@ class send_alert:
   def send_to_controller(self,breachType):
     header = 0xfeed
     print(f'{header}, {breachType}')
+    return(f'{header}, {breachType}')
 
   def send_to_email(self,breachType):
     print(f'To: {self.recepient}')
     print(self.breach_dcn[breachType])
+    return(f'To: {self.recepient}\n'+self.breach_dcn[breachType])
 
 class battery_check_and_alert(send_alert):
   coolingType_dcn = {'PASSIVE_COOLING':(0,35),'HI_ACTIVE_COOLING':(0,45),'MED_ACTIVE_COOLING':(0,40)}
@@ -35,6 +37,6 @@ class battery_check_and_alert(send_alert):
     breachType = self.classify_temperature_breach()
     getattr(self,self.send_alert_dcn[self.alertTarget])(breachType)
   
-
-myAlerter = battery_check_and_alert("TO_EMAIL",batteryChar,45,"a.b.c@bosch.com")
-myAlerter.check_and_alert()
+if __name__ == '__main__':
+  typewiseAlerterObject = battery_check_and_alert("TO_CONTROLLER",batteryChar,45)
+  typewiseAlerterObject.check_and_alert()
