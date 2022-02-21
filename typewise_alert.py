@@ -36,7 +36,5 @@ class battery_check_and_alert(send_alert):
   def check_and_alert(self):
     breachType = self.classify_temperature_breach()
     getattr(self,self.send_alert_dcn[self.alertTarget])(breachType)
-  
-if __name__ == '__main__':
-  typewiseAlerterObject = battery_check_and_alert("TO_CONTROLLER",batteryChar,45)
-  typewiseAlerterObject.check_and_alert()
+    return((self.alertTarget,breachType))
+

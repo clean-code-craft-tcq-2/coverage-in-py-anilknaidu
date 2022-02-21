@@ -24,6 +24,10 @@ class TypewiseTest(unittest.TestCase):
     self.assertEqual(typewiseAlerterControllerLst[0].send_to_controller("TOO_HIGH"),send_alert_controller_string)
     send_alert_controller_string = "65261, TOO_LOW"
     self.assertEqual(typewiseAlerterControllerLst[0].send_to_controller("TOO_LOW"),send_alert_controller_string)
+  
+  def test_check_and_alert(self):
+    self.assertTrue(typewiseAlerterControllerLst[0].check_and_alert() == ("TO_CONTROLLER","TOO_HIGH"))
+    self.assertTrue(typewiseAlerterEmailLst[0].check_and_alert() == ("TO_EMAIL","TOO_LOW"))
 
 if __name__ == '__main__':
   for batteryCoolingType in batteryCoolingTypesList:
