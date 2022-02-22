@@ -5,14 +5,15 @@ batteryChar = {}
 typewiseAlerterControllerLst = []
 typewiseAlerterEmailLst = []
 batteryCoolingTypesList = ["PASSIVE_COOLING","MED_ACTIVE_COOLING","HI_ACTIVE_COOLING"]
-controllerList = ["TOO_HIGH","TOO_HIGH","NORMAL"]
+controllerAlertList = ["TOO_HIGH","TOO_HIGH","NORMAL"]
 recipient = "a.b.c@bosch.com"
 class TypewiseTest(unittest.TestCase):
   def test_infers_breach_as_per_limits(self):
     for i in range(0,3):
       with self.subTest(i=i):
-        self.assertTrue(typewiseAlerterControllerLst[i].classify_temperature_breach() == controllerList[i])
+        self.assertTrue(typewiseAlerterControllerLst[i].classify_temperature_breach() == controllerAlertList[i])
         self.assertTrue(typewiseAlerterEmailLst[i].classify_temperature_breach() == "TOO_LOW")
+        
   def test_send_alert_email(self):
     send_alert_email_string = "To: "+recipient+"\nHi, the temperature is too low"
     self.assertEqual(typewiseAlerterEmailLst[0].send_to_email("TOO_LOW"),send_alert_email_string)
